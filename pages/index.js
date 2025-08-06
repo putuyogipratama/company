@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
+  // F62ygaCSlc1m1qwJ
   const services = [
     {
       title: "Accounting",
@@ -79,7 +80,7 @@ export default function Home() {
       </main>
       <AboutUs />
       <Stats />
-      <div className="bg-white px-16 pt-16">
+      <div className="bg-white px-16 pt-16 pb-16">
         <h1 className="text-4xl md:text-5xl font-bold mb-12 text-gray-800">
           Choose Our <br /> The Best Services
         </h1>

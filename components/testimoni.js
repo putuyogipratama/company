@@ -1,6 +1,6 @@
 export default function TestimonialCard() {
   return (
-    <div className="px-16 bg-[#2c3e50] text-white p-10 rounded-md flex flex-col md:flex-row items-center gap-8">
+    <div className="px-16 py-16 bg-[#2c3e50] text-white p-10 rounded-md flex flex-col md:flex-row items-center gap-8">
       <div className="w-full md:w-1/2">
         <img
           src="/testimonial.png" // ganti dengan path gambar kamu
