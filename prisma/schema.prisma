@@ -1,0 +1,1293 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Member {
+  id         Int       @id @default(autoincrement())
+  username   String?   @db.VarChar
+  pin        String?   @db.VarChar
+  device_id  String?   @db.VarChar
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+
+  @@map("member")
+}
+
+model bc_benefit {
+  id           String  @id @db.Uuid
+  pekerjaan_id String? @db.Uuid
+  nama         String
+}
+
+model bc_detail_gaji {
+  id           String   @id @db.Uuid
+  pekerjaan_id String?  @db.VarChar
+  nama         String?  @db.VarChar
+  nominal      Decimal? @db.Decimal
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model bc_dokumen {
+  kode     String? @db.VarChar
+  nama     String? @db.VarChar
+  jenis    String? @db.VarChar
+  template String? @db.VarChar
+  urutan   BigInt?
+  tipe     String? @db.VarChar
+
+  @@ignore
+}
+
+model bc_file {
+  id           String    @id @db.Uuid
+  user_id      String?   @db.Uuid
+  dokumen_kode String?   @db.VarChar
+  file         String?   @db.VarChar
+  random       String?   @db.VarChar
+  created_at   DateTime? @db.Timestamp(6)
+  updated_at   DateTime? @db.Timestamp(6)
+  verifikasi   String?   @db.VarChar
+  name         String?   @db.VarChar
+  message      String?
+}
+
+model bc_icb {
+  id           String  @id @db.Uuid
+  nama         String? @db.VarChar
+  link         String? @db.VarChar
+  harga        String? @db.VarChar
+  benefit      String?
+  harga_diskon String? @db.VarChar
+  tipe         String? @db.VarChar
+}
+
+model bc_master_step {
+  id         String    @id @db.Uuid
+  title      String?   @db.VarChar
+  desc       String?   @db.VarChar
+  image      String?   @db.VarChar
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+  order      Int?
+}
+
+model bc_master_step_list {
+  id         String    @id @db.Uuid
+  step_id    String?   @db.Uuid
+  title      String?   @db.VarChar
+  desc       String?   @db.VarChar
+  tipe       String?   @db.VarChar
+  image      String?   @db.VarChar
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+  order      BigInt?
+  slug       String?   @db.VarChar
+}
+
+model bc_pekerjaan {
+  id           String    @id @db.Uuid
+  nama         String?   @db.VarChar
+  gaji         Decimal?  @db.Decimal
+  level_bahasa String?
+  sertifikat   String?
+  jalur        String?
+  masa_kontrak String?
+  link         String?
+  image        String?   @db.VarChar
+  created_at   DateTime? @db.Timestamp(6)
+  updated_at   DateTime? @db.Timestamp(6)
+  lokasi       String?
+}
+
+model bc_pekerjaan_tag {
+  id           String  @id @db.Uuid
+  pekerjaan_id String? @db.Uuid
+  tag_id       String? @db.Uuid
+  tag_nama     String? @db.VarChar
+}
+
+model bc_status {
+  id   Int     @id @default(autoincrement())
+  nama String? @db.VarChar
+}
+
+model bc_student {
+  id                  String    @id @db.Uuid
+  user_id             String?   @db.Uuid
+  sts_biodata         String?   @db.VarChar
+  created_at          DateTime? @db.Timestamp(6)
+  updated_at          DateTime? @db.Timestamp(6)
+  pekerjaan_id        String?   @db.VarChar
+  sts_pekerjaan       String?   @db.VarChar
+  sts_wawancara       String?   @default("0") @db.VarChar
+  tgl_wawancara       String?   @db.VarChar
+  sts_dokumen         String?   @default("0") @db.VarChar
+  sts_mcu             String?   @default("0") @db.VarChar
+  sts_psikotes        String?   @default("0") @db.VarChar
+  sts_survei          String?   @default("0") @db.VarChar
+  upload_bahasa       String?   @default("0") @db.VarChar
+  upload_ssw          String?   @default("0") @db.VarChar
+  sts_dokumen_akhir   String?   @default("0") @db.VarChar
+  sts_wawancara_akhir String?   @default("0") @db.VarChar
+  tiket_pesawat       String?   @default("0") @db.VarChar
+  tgl_wawancara_akhir String?   @default("0") @db.VarChar
+  idpongo             String?   @db.VarChar
+}
+
+model bc_survei {
+  id         String    @id @db.Uuid
+  bulan      String?   @db.VarChar
+  tahun      String?   @db.VarChar
+  level      String?   @db.VarChar
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  user_id    String?   @db.Uuid
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model bc_syarat {
+  id           String? @db.Uuid
+  pekerjaan_id String? @db.Uuid
+  nama         String?
+
+  @@ignore
+}
+
+model bc_tags {
+  id   String  @id @db.Uuid
+  nama String? @db.VarChar
+}
+
+model bc_tahap {
+  id   Int     @id @default(autoincrement())
+  nama String? @db.VarChar
+}
+
+model bc_tanggal_selesai {
+  id         String    @id @db.Uuid
+  user_id    String?   @db.Uuid
+  proses     String?   @db.VarChar
+  date       DateTime? @db.Timestamp(6)
+  created_at DateTime? @db.Timestamp(6)
+  message    String?
+}
+
+model bc_wawancara {
+  id         String    @id @db.Uuid
+  user_id    String?   @db.Uuid
+  link       String?   @db.VarChar
+  tanggal    DateTime? @db.Date
+  meetid     String?   @db.VarChar
+  passcode   String?   @db.VarChar
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  akhir      String?   @default("0") @db.VarChar
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model city {
+  city       String?   @db.VarChar
+  prefecture String?   @db.VarChar
+  deleted_at DateTime? @db.Timestamp(6)
+
+  @@ignore
+}
+
+model data {
+  id     Int     @id @default(autoincrement())
+  title  String? @db.VarChar
+  value  String?
+  logo   String? @db.VarChar
+  urutan Int?    @db.SmallInt
+  aktif  Int?    @db.SmallInt
+  note   String?
+}
+
+model data_rotator {
+  id         String    @id @db.Uuid
+  slug       String?   @db.VarChar
+  ip         String?   @db.VarChar
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+}
+
+model data_rotator_logs {
+  id         String    @id @db.Uuid
+  url        String?   @db.VarChar
+  status     Int?      @db.SmallInt
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+  rotator    String?   @db.VarChar
+}
+
+model form_webinar {
+  id         String    @id @db.VarChar
+  title      String?   @db.VarChar
+  slug       String?   @db.VarChar
+  url        String?   @db.VarChar
+  whatsapp   String?   @db.VarChar
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+  created_by String?   @db.VarChar
+  updated_by String?   @db.VarChar
+  deleted_by String?   @db.VarChar
+
+  @@index([title], map: "form_webinar_title")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model md_user_continue_watch {
+  id          String    @id @db.Uuid
+  user_id     String    @db.Uuid
+  journey_id  String    @db.Uuid
+  slide_id    String    @db.Uuid
+  status      Int
+  description String?
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+  deleted_at  DateTime? @db.Timestamp(0)
+  created_by  BigInt    @default(0)
+  updated_by  BigInt    @default(0)
+  deleted_by  BigInt    @default(0)
+
+  @@index([journey_id], map: "md_user_continue_watch_id_mh_journey_index")
+  @@index([slide_id], map: "md_user_continue_watch_id_mh_part_index")
+  @@index([user_id], map: "md_user_continue_watch_id_mh_user_index")
+  @@index([status], map: "md_user_continue_watch_status_index")
+}
+
+model md_user_notification {
+  id          String    @id @db.Uuid
+  to          String?   @db.VarChar
+  kategori    String?   @db.VarChar
+  date        DateTime? @db.Timestamp(0)
+  name        String?   @db.VarChar(255)
+  description String?
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+  deleted_at  DateTime? @db.Timestamp(0)
+  created_by  BigInt    @default(0)
+  updated_by  BigInt    @default(0)
+  deleted_by  BigInt    @default(0)
+  jenis       String?   @db.VarChar
+  image       String?   @db.VarChar
+  link        String?
+
+  @@index([kategori], map: "md_user_notification_id_mh_notification_category_index")
+  @@index([to], map: "md_user_notification_id_mh_user_index")
+}
+
+model md_user_notification_read {
+  id              String    @id @db.Uuid
+  user_id         String?   @db.Uuid
+  notification_id String?   @db.Uuid
+  read            String?   @db.VarChar
+  delete          String?   @db.VarChar
+  created_at      DateTime? @db.Timestamp(6)
+  updated_at      DateTime? @db.Timestamp(6)
+  deleted_at      DateTime? @db.Timestamp(6)
+}
+
+model md_user_part_unlocked {
+  id          String    @id @db.Uuid
+  user_id     String    @db.Uuid
+  part_id     String?   @db.Uuid
+  description String?
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+  deleted_at  DateTime? @db.Timestamp(0)
+  created_by  BigInt    @default(0)
+  updated_by  BigInt    @default(0)
+  deleted_by  BigInt    @default(0)
+  status      Int       @default(0)
+
+  @@index([part_id], map: "md_user_part_unlocked_part_id_index")
+  @@index([user_id], map: "md_user_part_unlocked_user_id_index")
+}
+
+model mh_all_part {
+  id          String    @id @db.VarChar
+  name        String?   @db.VarChar
+  description String?   @db.VarChar
+  created_at  DateTime? @db.Timestamp(6)
+  updated_at  DateTime? @db.Timestamp(6)
+  deleted_at  DateTime? @db.Timestamp(6)
+  no          String?   @db.VarChar
+}
+
+model mh_application {
+  id          String    @id @db.Uuid
+  name        String    @db.VarChar(255)
+  description String?
+  token       String    @db.VarChar(255)
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+  deleted_at  DateTime? @db.Timestamp(0)
+  created_by  String?   @db.VarChar(255)
+  updated_by  String?   @db.VarChar(255)
+  deleted_by  String?   @db.VarChar(255)
+}
+
+model mh_banner {
+  id          String    @id @db.Uuid
+  name        String    @db.VarChar(255)
+  date_start  DateTime  @db.Timestamp(0)
+  date_end    DateTime  @db.Timestamp(0)
+  link_image  String    @db.VarChar(2083)
+  description String?
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+  deleted_at  DateTime? @db.Timestamp(0)
+  created_by  BigInt    @default(0)
+  updated_by  BigInt    @default(0)
+  deleted_by  BigInt    @default(0)
+}
+
+model mh_blog {
+  id              String    @id @default(dbgenerated("nextval('mh_blog_id_seq'::regclass)")) @db.VarChar
+  name            String?   @db.VarChar
+  description     String?
+  file            String?   @db.VarChar
+  category        String?   @db.VarChar
+  name_jpn        String?   @db.VarChar
+  description_jpn String?   @db.VarChar
+  link_image      String?   @db.VarChar
+  created_at      DateTime? @db.Timestamp(0)
+  updated_at      DateTime? @db.Timestamp(0)
+  deleted_at      DateTime? @db.Timestamp(0)
+  created_by      BigInt?   @default(0)
+  updated_by      BigInt?   @default(0)
+  deleted_by      BigInt?   @default(0)
+}
+
+model mh_chapter {
+  id             String    @id @db.Uuid
+  level_id       String    @db.Uuid
+  sequence       BigInt
+  name           String    @db.VarChar(255)
+  description    String?
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+  deleted_at     DateTime? @db.Timestamp(0)
+  created_by     BigInt    @default(0)
+  updated_by     BigInt    @default(0)
+  deleted_by     BigInt    @default(0)
+  status_publish Int       @default(0)
+  estimate_time  Int       @default(1)
+  total_item     Int       @default(0)
+}
+
+model mh_comic {
+  id          String    @id @db.Uuid
+  name        String?   @db.VarChar
+  description String?   @db.VarChar
+  link_image  String?   @db.VarChar
+  file        String?   @db.VarChar
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+  deleted_at  DateTime? @db.Timestamp(0)
+  created_by  BigInt?   @default(0)
+  updated_by  BigInt?   @default(0)
+  deleted_by  BigInt?   @default(0)
+  view        Decimal?  @default(0) @db.Decimal
+  category    String?   @db.VarChar
+  genre       String?   @db.VarChar
+  penulis     String?   @db.VarChar
+}
+
+model mh_comic_detail {
+  id          Int       @id @default(autoincrement())
+  mh_comic_id String?   @db.VarChar
+  file        String?   @db.VarChar
+  eps         String?   @db.VarChar
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+  deleted_at  DateTime? @db.Timestamp(0)
+  created_by  BigInt?   @default(0)
+  updated_by  BigInt?   @default(0)
+  deleted_by  BigInt?   @default(0)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model mh_culture {
+  id          String? @db.VarChar
+  name        String? @db.VarChar
+  description String? @db.VarChar
+  link_image  String? @db.VarChar
+  company     String? @db.VarChar
+  address     String? @db.VarChar
+
+  @@ignore
+}
+
+model mh_dokumen {
+  id         String    @id @db.VarChar
+  user_id    String?   @db.VarChar
+  file       String?   @db.VarChar
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+  created_by String?   @db.VarChar
+  updated_by String?   @db.VarChar
+  deleted_by String?   @db.VarChar
+  dokumen_id String?   @db.VarChar
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model mh_grammar {
+  id          String?   @db.VarChar
+  journey_id  String?   @db.VarChar
+  kosakata    String?   @db.VarChar
+  translate   String?   @db.VarChar
+  part        String?   @db.VarChar
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+  deleted_at  DateTime? @db.Timestamp(0)
+  created_by  BigInt?
+  updated_by  BigInt?
+  deleted_by  BigInt?
+  title       String?   @db.VarChar
+  description String?
+  grammar     String?
+  example     String?
+
+  @@ignore
+}
+
+model mh_grammar_user {
+  id         String    @id @default(dbgenerated("nextval('mh_grammar_user_id_seq'::regclass)")) @db.VarChar
+  user_id    String?   @db.VarChar
+  grammar_id String?   @db.VarChar
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+  deleted_at DateTime? @db.Timestamp(0)
+  created_by BigInt?
+  updated_by BigInt?
+  deleted_by BigInt?
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model mh_invoice {
+  id              Int?      @default(autoincrement())
+  name            String?   @db.VarChar
+  nominal         String?   @db.VarChar
+  kupon           String?   @db.VarChar
+  external        String?   @db.VarChar
+  nominal_kupon   String?   @db.VarChar
+  slug            String?   @db.VarChar
+  created_at      DateTime? @db.Timestamp(6)
+  updated_at      DateTime? @db.Timestamp(6)
+  deleted_at      DateTime? @db.Timestamp(6)
+  success_page    String?   @db.VarChar
+  wa_cs           String?   @db.VarChar
+  created_by      String?   @db.VarChar
+  updated_by      String?   @db.VarChar
+  deleted_by      String?   @db.VarChar
+  tanggal_expired String?   @db.VarChar
+
+  @@ignore
+}
+
+model mh_jobs {
+  id          String    @id @default(dbgenerated("nextval('mh_jobs_id_seq'::regclass)")) @db.VarChar
+  name        String?   @db.VarChar
+  description String?   @db.VarChar
+  link_image  String?   @db.VarChar
+  company     String?   @db.VarChar
+  address     String?   @db.VarChar
+  tanggal     String?   @db.VarChar
+  link        String?
+  proses      String?
+  syarat      String?
+  visa        String?
+  kontrak     String?   @db.VarChar
+  gaji        String?   @db.VarChar
+  syarat_doc  String?
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+  deleted_at  DateTime? @db.Timestamp(0)
+  created_by  BigInt?   @default(0)
+  updated_by  BigInt?   @default(0)
+  deleted_by  BigInt?   @default(0)
+}
+
+model mh_journey {
+  id             String    @id @db.Uuid
+  name           String    @db.VarChar(255)
+  link_image     String    @db.VarChar(2083)
+  description    String?
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+  deleted_at     DateTime? @db.Timestamp(0)
+  created_by     BigInt    @default(0)
+  updated_by     BigInt    @default(0)
+  deleted_by     BigInt    @default(0)
+  sequence       BigInt
+  status_publish Int       @default(0)
+}
+
+model mh_journey_score {
+  id         Int       @id @default(autoincrement())
+  user_id    String?   @db.VarChar
+  journey_id String?   @db.VarChar
+  score      String?   @db.VarChar
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+  deleted_at DateTime? @db.Timestamp(0)
+  created_by BigInt?   @default(0)
+  updated_by BigInt?   @default(0)
+  deleted_by BigInt?   @default(0)
+}
+
+model mh_kode_pendaftaran {
+  id   Int     @id @default(autoincrement())
+  nama String? @db.VarChar
+}
+
+model mh_kontak_cs {
+  id         String    @id(map: "mh_kontak_cs_pkey1") @db.Uuid
+  phone      String?   @db.VarChar
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+  created_by String?   @db.VarChar
+  updated_by String?   @db.VarChar
+  deleted_by String?   @db.VarChar
+  kode       BigInt?
+  name       String?   @db.VarChar
+  aktif      Int?      @default(1) @db.SmallInt
+  slug       String?   @db.VarChar
+  posisi     Int?      @db.SmallInt
+  target     Decimal?  @db.Decimal
+  email      String?   @db.VarChar
+  autoassign Boolean?  @default(false)
+
+  @@index([aktif], map: "mh_kontak_cs_aktif")
+  @@index([name], map: "mh_kontak_cs_name")
+  @@index([slug], map: "ms_kontak_cs_slug")
+}
+
+model mh_kontak_cs_old {
+  id         String    @id(map: "mh_kontak_cs_pkey") @db.Uuid
+  phone      String?   @db.VarChar
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+  created_by String?   @db.VarChar
+  updated_by String?   @db.VarChar
+  deleted_by String?   @db.VarChar
+  kode       BigInt?
+  name       String?   @db.VarChar
+  aktif      Int?      @default(1) @db.SmallInt
+  slug       String?   @db.VarChar
+  posisi     Int?      @db.SmallInt
+  target     Decimal?  @db.Decimal
+  email      String?   @db.VarChar
+}
+
+model mh_kosakata {
+  id         String    @id(map: "mh_ringkasan_pkey") @db.VarChar
+  journey_id String?   @db.VarChar
+  kosakata   String?   @db.VarChar
+  translate  String?   @db.VarChar
+  part       String?   @db.VarChar
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+  deleted_at DateTime? @db.Timestamp(0)
+  created_by BigInt?   @default(0)
+  updated_by BigInt?   @default(0)
+  deleted_by BigInt?   @default(0)
+}
+
+model mh_level {
+  id             String    @id @db.Uuid
+  journey_id     String    @db.Uuid
+  sequence       BigInt
+  name           String    @db.VarChar(255)
+  description    String?
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+  deleted_at     DateTime? @db.Timestamp(0)
+  created_by     BigInt    @default(0)
+  updated_by     BigInt    @default(0)
+  deleted_by     BigInt    @default(0)
+  status_publish Int       @default(0)
+}
+
+model mh_library {
+  id         String    @id @db.Uuid
+  name       String?   @db.VarChar
+  value      Json?     @db.Json
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+  created_by String?   @db.VarChar
+  updated_by String?   @db.VarChar
+  deleted_by String?   @db.VarChar
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model mh_news {
+  id               String    @id @db.Uuid
+  news_category_id String    @db.Uuid
+  name             String    @db.VarChar(255)
+  link_image       String    @db.VarChar(2083)
+  description      Json?     @db.Json
+  created_at       DateTime? @db.Timestamp(0)
+  updated_at       DateTime? @db.Timestamp(0)
+  deleted_at       DateTime? @db.Timestamp(0)
+  created_by       BigInt    @default(0)
+  updated_by       BigInt    @default(0)
+  deleted_by       BigInt    @default(0)
+  status_publish   Int       @default(0)
+  link_url         String    @default("") @db.VarChar(2083)
+
+  @@index([news_category_id], map: "mh_news_id_mh_news_category_index")
+}
+
+model mh_news_category {
+  id          String    @id @db.Uuid
+  name        String    @db.VarChar(255)
+  description String?
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+  deleted_at  DateTime? @db.Timestamp(0)
+  created_by  BigInt    @default(0)
+  updated_by  BigInt    @default(0)
+  deleted_by  BigInt    @default(0)
+}
+
+model mh_notification_category {
+  id          String    @id @db.Uuid
+  name        String    @db.VarChar(255)
+  description String?
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+  deleted_at  DateTime? @db.Timestamp(0)
+  created_by  BigInt    @default(0)
+  updated_by  BigInt    @default(0)
+  deleted_by  BigInt    @default(0)
+  icon        String?   @db.VarChar
+  color       String?   @db.VarChar
+}
+
+model mh_pagespeed {
+  id             String    @id @db.Uuid
+  performance    Float?
+  accessibility  Float?
+  seo            Float?
+  best_practices Float?
+  created_at     DateTime  @default(now()) @db.Timestamp(6)
+  updated_at     DateTime? @db.Timestamp(6)
+  deleted_at     DateTime? @db.Timestamp(6)
+  created_by     BigInt?   @default(0)
+  updated_by     BigInt?   @default(0)
+  deleted_by     BigInt?   @default(0)
+}
+
+model mh_part {
+  id             String    @id @db.Uuid
+  chapter_id     String    @db.Uuid
+  sequence       BigInt
+  name           String    @db.VarChar(255)
+  description    String?
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+  deleted_at     DateTime? @db.Timestamp(0)
+  created_by     BigInt    @default(0)
+  updated_by     BigInt    @default(0)
+  deleted_by     BigInt    @default(0)
+  status_publish Int       @default(0)
+  estimate_time  Int       @default(1)
+}
+
+model mh_quiz {
+  id          String    @id @db.VarChar
+  name        String?   @db.VarChar
+  description String?   @db.VarChar
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+  deleted_at  DateTime? @db.Timestamp(0)
+  created_by  BigInt?   @default(0)
+  updated_by  BigInt?   @default(0)
+  deleted_by  BigInt?   @default(0)
+  journey     String?   @db.VarChar
+  level       String?   @db.VarChar
+  chapter     String?   @db.VarChar
+  part        String?   @db.VarChar
+  tipe        String?   @db.VarChar
+  publish     Boolean?  @default(false)
+  posisi      String?   @default("0") @db.VarChar
+}
+
+model mh_quiz_answer {
+  id           String    @id @db.VarChar
+  quiz_list_id String?   @db.VarChar
+  name         String?   @db.VarChar
+  is_answer    String?   @db.VarChar
+  created_at   DateTime? @db.Timestamp(0)
+  updated_at   DateTime? @db.Timestamp(0)
+  deleted_at   DateTime? @db.Timestamp(0)
+  created_by   BigInt?   @default(0)
+  updated_by   BigInt?   @default(0)
+  deleted_by   BigInt?   @default(0)
+  order        String?   @db.VarChar
+}
+
+model mh_quiz_list {
+  id         String    @id @default(dbgenerated("nextval('mh_quiz_list_id_seq'::regclass)")) @db.VarChar
+  order      Int?
+  title      String?   @db.VarChar
+  question   String?   @db.VarChar
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+  deleted_at DateTime? @db.Timestamp(0)
+  created_by BigInt?   @default(0)
+  updated_by BigInt?   @default(0)
+  deleted_by BigInt?   @default(0)
+  quiz_id    String?   @db.VarChar
+  tipe       String?   @db.VarChar(255)
+  audio      String?   @db.VarChar
+}
+
+model mh_quiz_score {
+  id         String  @id @db.Uuid
+  quiz_id    String? @db.VarChar
+  user_id    String? @db.VarChar
+  score      BigInt?
+  created_at String? @db.VarChar
+  updated_at String? @db.VarChar
+  deleted_at String? @db.VarChar
+}
+
+model mh_quiz_user {
+  id             String  @id @db.VarChar
+  user_id        String? @db.VarChar
+  quiz_list_id   String? @db.VarChar
+  quiz_answer_id String? @db.VarChar
+  deleted_at     String? @db.VarChar
+  updated_at     String? @db.VarChar
+  created_at     String? @db.VarChar
+}
+
+model mh_rotator {
+  id         String    @id(map: "untitled_table_280_pkey") @db.Uuid
+  slug       String?   @db.VarChar
+  message    String?
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+  created_by String?   @db.VarChar
+  updated_by String?   @db.VarChar
+  deleted_by String?   @db.VarChar
+  nomor      String?
+}
+
+model mh_rotator_bobot {
+  id         String    @id @db.Uuid
+  slug       String?   @db.VarChar
+  nomor      String?   @db.VarChar
+  bobot      Decimal?  @db.Decimal
+  total      Decimal?  @default(0) @db.Decimal
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+  created_by String?   @db.VarChar
+  updated_by String?   @db.VarChar
+  deleted_by String?   @db.VarChar
+}
+
+model mh_rotator_ratio {
+  id         String    @id(map: "mh_ratio_rotator_pkey") @db.Uuid
+  slug       String?   @db.VarChar
+  nomor      String?   @db.VarChar
+  total      Int?      @db.SmallInt
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model mh_scholarship {
+  id          String?   @db.VarChar
+  name        String?   @db.VarChar
+  description String?   @db.VarChar
+  link_image  String?   @db.VarChar
+  universitas String?   @db.VarChar
+  address     String?   @db.VarChar
+  syarat_doc  String?
+  benefit     String?
+  jurusan     String?
+  jenjang     String?   @db.VarChar
+  proses      String?
+  tanggal     DateTime? @db.Date
+  link        String?
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+  deleted_at  DateTime? @db.Timestamp(0)
+  created_by  BigInt?   @default(0)
+  updated_by  BigInt?   @default(0)
+  deleted_by  BigInt?   @default(0)
+
+  @@ignore
+}
+
+model mh_setting {
+  id         Int       @id @default(autoincrement())
+  nilai      String?   @db.VarChar
+  ket        String?   @db.VarChar
+  deleted_at String?   @db.VarChar
+  updated_at DateTime? @db.Timestamp(6)
+}
+
+model mh_slide {
+  id             String    @id @db.Uuid
+  part_id        String    @db.Uuid
+  sequence       BigInt
+  name           String    @db.VarChar
+  description    Json?     @db.Json
+  status_publish Int       @default(0)
+  created_at     DateTime? @db.Timestamp(6)
+  updated_at     DateTime? @db.Timestamp(6)
+  deleted_at     DateTime? @db.Timestamp(6)
+  created_by     BigInt    @default(0)
+  updated_by     BigInt    @default(0)
+  deleted_by     BigInt    @default(0)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model mh_talkshow {
+  id          String?   @db.VarChar
+  name        String?   @db.VarChar
+  description String?
+  file        String?   @db.VarChar
+  category    String?   @db.VarChar
+  link_image  String?   @db.VarChar
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+  deleted_at  DateTime? @db.Timestamp(0)
+  created_by  BigInt?
+  updated_by  BigInt?
+  deleted_by  BigInt?
+
+  @@ignore
+}
+
+model mh_transaksi {
+  id         String    @id @db.Uuid
+  voucher_id String?   @db.VarChar
+  invoice_id String?   @db.VarChar
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+  created_by String?   @db.VarChar
+  updated_by String?   @db.VarChar
+  deleted_by String?   @db.VarChar
+  is_done    String?   @default("0") @db.VarChar
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model mh_travel_chapter {
+  id                 String?   @db.Uuid
+  level_id           String?   @db.Uuid
+  sequence           BigInt?
+  name               String?   @db.VarChar(255)
+  description        String?
+  created_at         DateTime? @db.Timestamp(0)
+  updated_at         DateTime? @db.Timestamp(0)
+  deleted_at         DateTime? @db.Timestamp(0)
+  created_by         BigInt?
+  updated_by         BigInt?
+  deleted_by         BigInt?
+  status_publish     Int?
+  estimate_time      Int?
+  total_item         Int?
+  name_jepang        String?   @db.VarChar
+  description_jepang String?   @db.VarChar
+  coin               String?   @db.VarChar
+
+  @@ignore
+}
+
+model mh_travel_chapter_survey {
+  id         String    @id @db.Uuid
+  chapter_id String?   @db.Uuid
+  value      String?
+  user_id    String?   @db.Uuid
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+}
+
+model mh_travel_chapter_user {
+  id         String    @id
+  chapter_id String?
+  user_id    String?
+  status     String?
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model mh_travel_chapter_user_logs {
+  id         String?
+  chapter_id String?
+  user_id    String?
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model mh_travel_journey {
+  id             String?   @db.Uuid
+  name           String?   @db.VarChar(255)
+  link_image     String?   @db.VarChar(2083)
+  description    String?
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+  deleted_at     DateTime? @db.Timestamp(0)
+  created_by     BigInt?
+  updated_by     BigInt?
+  deleted_by     BigInt?
+  sequence       BigInt?
+  status_publish Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model mh_travel_level {
+  id              String?   @db.Uuid
+  journey_id      String?   @db.Uuid
+  sequence        BigInt?
+  name            String?   @db.VarChar(255)
+  description     String?
+  created_at      DateTime? @db.Timestamp(0)
+  updated_at      DateTime? @db.Timestamp(0)
+  deleted_at      DateTime? @db.Timestamp(0)
+  created_by      BigInt?
+  updated_by      BigInt?
+  deleted_by      BigInt?
+  status_publish  Int?
+  status_lock     Int?      @db.SmallInt
+  icon            String?   @db.VarChar
+  image_aktif     String?   @db.VarChar
+  image_non_aktif String?   @db.VarChar
+
+  @@ignore
+}
+
+model mh_travel_level_user {
+  id         String    @id @db.Uuid
+  level_id   String?   @db.Uuid
+  user_id    String?   @db.Uuid
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model mh_travel_part {
+  id             String?   @db.Uuid
+  chapter_id     String?   @db.Uuid
+  sequence       BigInt?
+  name           String?   @db.VarChar(255)
+  description    String?
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+  deleted_at     DateTime? @db.Timestamp(0)
+  created_by     BigInt?
+  updated_by     BigInt?
+  deleted_by     BigInt?
+  status_publish Int?
+  estimate_time  String?   @db.VarChar
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model mh_travel_part_user {
+  id         String?
+  part_id    String?
+  user_id    String?
+  status     String?
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model mh_travel_part_user_logs {
+  id         String?
+  part_id    String?
+  user_id    String?
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+
+  @@ignore
+}
+
+model mh_travel_slide {
+  id             String    @id @db.Uuid
+  part_id        String?   @db.Uuid
+  sequence       BigInt?
+  name           String?   @db.VarChar
+  description    String?
+  status_publish BigInt?
+  created_at     DateTime? @db.Timestamp(6)
+  updated_at     DateTime? @db.Timestamp(6)
+  deleted_at     DateTime? @db.Timestamp(6)
+  created_by     BigInt?
+  deleted_by     BigInt?
+  updated_by     BigInt?
+  tipe           String?   @default("materi") @db.VarChar
+}
+
+model mh_travel_slide_user_answer {
+  id         String    @id @db.Uuid
+  slide_id   String?   @db.Uuid
+  user_id    String?   @db.Uuid
+  value      String?
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model mh_universitas {
+  id          String?   @db.VarChar
+  name        String?   @db.VarChar
+  description String?   @db.VarChar
+  link_image  String?   @db.VarChar
+  syarat_doc  String?
+  benefit     String?
+  proses      String?
+  tanggal     DateTime? @db.Date
+  link        String?
+  prestasi    String?
+  lokasi      String?
+  biaya       String?
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+  deleted_at  DateTime? @db.Timestamp(0)
+  created_by  BigInt?
+  updated_by  BigInt?
+  deleted_by  BigInt?
+
+  @@ignore
+}
+
+model mh_voucher {
+  id              String    @id @db.Uuid
+  invoice_id      String?   @db.VarChar
+  kupon           String?   @db.VarChar
+  nominal         String?   @db.VarChar
+  created_at      DateTime? @db.Timestamp(6)
+  updated_at      DateTime? @db.Timestamp(6)
+  deleted_at      DateTime? @db.Timestamp(6)
+  created_by      String?   @db.VarChar
+  updated_by      String?   @db.VarChar
+  deleted_by      String?   @db.VarChar
+  tanggal_expired String?   @db.VarChar
+  jumlah          BigInt?
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model mh_webinar {
+  id          String?   @db.VarChar
+  name        String?   @db.VarChar
+  description String?
+  file        String?   @db.VarChar
+  category    String?   @db.VarChar
+  link_image  String?   @db.VarChar
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+  deleted_at  DateTime? @db.Timestamp(0)
+  created_by  BigInt?
+  updated_by  BigInt?
+  deleted_by  BigInt?
+
+  @@ignore
+}
+
+model mh_youtube {
+  id          String    @id @db.Uuid
+  name        String    @db.VarChar(255)
+  link_image  String    @db.VarChar(2083)
+  link_url    String    @db.VarChar(2083)
+  description String?
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+  deleted_at  DateTime? @db.Timestamp(0)
+  created_by  BigInt    @default(0)
+  updated_by  BigInt    @default(0)
+  deleted_by  BigInt    @default(0)
+  view        Decimal?  @default(0) @db.Decimal
+}
+
+model migrations {
+  id        Int    @id @default(autoincrement())
+  migration String @db.VarChar(255)
+  batch     Int
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model ms_agama {
+  id         Int?
+  nama       String?   @db.VarChar
+  deleted_at DateTime? @db.Timestamp(6)
+
+  @@ignore
+}
+
+model ms_bidang {
+  id         String    @id @db.Uuid
+  program_id String?   @db.Uuid
+  nama       String?   @db.VarChar
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+  created_by String?   @db.VarChar
+  updated_by String?   @db.VarChar
+  deleted_by String?   @db.VarChar
+}
+
+model ms_pekerjaan {
+  id         Int       @id @default(autoincrement())
+  nama       String?   @db.VarChar
+  deleted_at DateTime? @db.Timestamp(6)
+}
+
+model ms_pendidikan {
+  id         Int       @id @default(autoincrement())
+  nama       String?   @db.VarChar
+  deleted_at DateTime? @db.Timestamp(6)
+}
+
+model ms_produk {
+  id         String    @id @db.Uuid
+  nama       String?   @db.VarChar
+  nominal    Decimal?  @db.Decimal
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+}
+
+model ms_program {
+  id         String    @id @db.Uuid
+  nama       String?   @db.VarChar
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+  created_by String?   @db.VarChar
+  updated_by String?   @db.VarChar
+  deleted_by String?   @db.VarChar
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model ms_sertifikat {
+  id         Int?
+  nama       String?   @db.VarChar
+  deleted_at DateTime? @db.Timestamp(6)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model ms_wilayah {
+  kode       String?   @db.VarChar
+  nama       String?
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+
+  @@ignore
+}
+
+model page_metrics {
+  id                    Int       @id @default(autoincrement())
+  page_title            String    @db.VarChar(255)
+  screen_page_views     Int
+  active_users          Int
+  engagement_rate       Decimal   @db.Decimal(5, 2)
+  event_count           Int
+  created_at            DateTime? @default(now()) @db.Timestamp(6)
+  updated_at            DateTime? @db.Timestamp(6)
+  deleted_at            DateTime? @db.Timestamp(6)
+  budget                BigInt?
+  pendaftar             BigInt?
+  convertion_rate       Decimal?  @db.Decimal
+  total_convert         BigInt?
+  real_convertion_value Decimal?  @db.Decimal
+  url                   String?
+  updated_by            String?   @db.VarChar
+}
+
+model setting {
+  id    Int     @id @default(autoincrement())
+  value String?
+}
+
+model th_storage {
+  id         String    @id @db.Uuid
+  unique_id  String    @db.VarChar(255)
+  filename   String?   @db.VarChar(255)
+  filetype   String?   @db.VarChar(255)
+  filesize   Int?
+  filepath   String?   @db.VarChar(255)
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+  deleted_at DateTime? @db.Timestamp(0)
+  created_by BigInt    @default(0)
+  updated_by BigInt    @default(0)
+  deleted_by BigInt    @default(0)
+}
+
+model untitled_table_268 {
+  id Int @id @default(autoincrement())
+}
+
+model webinar_peserta {
+  id         String    @id @db.VarChar
+  nama       String?   @db.VarChar
+  phone      String?   @db.VarChar
+  email      String?   @db.VarChar
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  webinar_id String?   @db.VarChar
+  deleted_at DateTime? @db.Timestamp(6)
+  sp         String?   @db.VarChar
+  updated_by String?   @db.VarChar
+  deleted_by String?   @db.VarChar
+  is_checked String?   @db.VarChar
+  is_done    String?   @db.VarChar
+  is_aktif   Int?      @default(0) @db.SmallInt
+
+  @@index([created_at], map: "webinar_peserta_created_at")
+  @@index([deleted_at], map: "webinar_peserta_deleted_at")
+  @@index([email], map: "webinar_peserta_email")
+  @@index([is_checked], map: "webinar_peserta_is_checked")
+  @@index([is_done], map: "webinar_peserta_is_done")
+  @@index([nama], map: "webinar_peserta_nama")
+  @@index([phone], map: "webinar_peserta_phone")
+  @@index([sp], map: "webinar_peserta_sp")
+  @@index([webinar_id], map: "webinar_peserta_webinar_id")
+}
