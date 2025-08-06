@@ -11,34 +11,24 @@ export default function Home() {
   // F62ygaCSlc1m1qwJ
   const services = [
     {
-      title: "Accounting",
+      title: "Layanan Konsultan Profesional",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis asperiores omnis eveniet",
+        "Pemberian jasa konsultasi komprehensif baik individu maupun perusahaan yang mencakup analisis kewajiban perpajakan, pengelolaan keuangan, serta pendampingan hukum litigasi & non-litigasi, guna mendukung pengambilan keputusan yang tepat, efisien, dan sesuai ketentuan hukum yang berlaku.",
     },
     {
-      title: "Transaction",
+      title: "Bidang Pajak & Keuangan",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis asperiores omnis eveniet",
+        "Kami menyediakan layanan pengelolaan perpajakan dan keuangan untuk individu dan perusahaan, mencakup pendampingan bulanan, perhitungan dan pelaporan SPT Masa (PPh dan PPN), serta penyusunan dan pelaporan SPT Tahunan. Layanan ini dilengkapi dengan penyusunan laporan keuangan yang sesuai standar akuntansi dan ketentuan perpajakan yang berlaku.",
     },
     {
-      title: "Payment Tax",
+      title: "Bidang Hukum",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis asperiores omnis eveniet",
+        "Kami memberikan pendampingan hukum untuk individu dan perusahaan, baik melalui jalur pengadilan (litigasi) maupun di luar pengadilan ( non- l i t igasi). Layanan mencakup penyusunan kontrak, legal audit, mediasi, hingga pembelaan dalam perkara perdata, pidana, dan komersial.",
     },
     {
-      title: "Business Count",
+      title: "Layanan Perizinan dan Akta Perusahaan",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis asperiores omnis eveniet",
-    },
-    {
-      title: "Bookkeeping",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit Perferendis asperiores omnis eveniet",
-    },
-    {
-      title: "About Accounting",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit Perferendis asperiores omnis eveniet",
+        "Kami menyediakan layanan pengurusan perizinan dan dokumen legal perusahaan secara menyeluruh, mulai dari pendirian badan usaha, perubahan akta, hingga izin operasional dan sertifikasi. Proses dilakukan secara cepat, akurat, dan sesuai ketentuan hukum yang berlaku, dengan pendampingan penuh dari awal hingga selesai",
     },
   ];
 
@@ -49,12 +39,10 @@ export default function Home() {
         {/* Left Content */}
         <div className="flex-1">
           <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
-            Entrust Your <br /> Accounting <br /> Problems With Us
+            Dirson <br /> Consulting  <br /> Services
           </h1>
           <p className="text-gray-300 mb-8 max-w-md">
-            Lorem ipsum dolor, sit amet consectetur, adipisicing elit. Sit
-            explicabo enim quo nesciunt, consequatur perspiciatis numquam minus
-            deleniti eum libero.
+            menghadirkan rangkaian layanan profesional yang terintegrasi di bidang perpajakan, keuangan, hukum, dan legalitas usaha. Setiap layanan dirancang untuk memberikan nilai strategis, kepatuhan regulatif, dan efisiensi operasional bagi klien dari berbagai sektor.
           </p>
           <div className="flex gap-4">
             <Link href="#get-started">
@@ -82,7 +70,7 @@ export default function Home() {
       <Stats />
       <div className="bg-white px-16 pt-16 pb-16">
         <h1 className="text-4xl md:text-5xl font-bold mb-12 text-gray-800">
-          Choose Our <br /> The Best Services
+          Layanan Kami
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">

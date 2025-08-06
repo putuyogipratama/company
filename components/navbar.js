@@ -12,7 +12,7 @@ export default function Navbar() {
     <>
       <nav className="bg-[#2C3E50] text-white px-6 md:px-20 py-4">
         <div className="flex justify-between items-center">
-          <h1 className="text-xl md:text-2xl font-bold text-green-400">NaylaPramesti</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-green-400">Dirson Consulting Services</h1>
 
           {/* Mobile Toggle */}
           <div className="md:hidden">

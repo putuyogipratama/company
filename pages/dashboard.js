@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
+import { FaSignOutAlt } from "react-icons/fa";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -79,9 +80,9 @@ export default function DashboardPage() {
         </ul>
         <button
           onClick={handleLogout}
-          className="bg-red-800 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"
+          className="text-white px-3 py-1 text-sm"
         >
-          Logout
+          <FaSignOutAlt />
         </button>
       </div>
       <div className="p-6">

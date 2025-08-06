@@ -18,15 +18,12 @@ export default function AboutUs() {
 
         {/* Right Text */}
         <div className="w-full md:w-1/2">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">About us</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Tentang Kami</h2>
           <p className="text-gray-600 mb-8">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Blanditiis ex quod perspiciatis accusamus maxime iis ex quod
-            perspiciatis accusamus maxime ommo nditiis ex quod perspiciatis
-            accusamus maxime omm
+            Dirson Consulting Services adalah perusahaan independen yang didirikan berdasarkan Akta Notaris No. 1 tertanggal 07, 05, 2025. berkedudukan di Kota Makassar. Bergerak di bidang Konsultasi Hukum, Keuangan dan Pajak. Hadir untuk menjawab kebutuhan akan layanan yang adil, transparan, dan berintegritas tinggi di tengah perkembangan dunia usaha dan sistem hukum Indonesia. Kami berdiri atas semangat profesionalisme dan kepercayaan, memberikan solusi yang tepat untuk memastikan kepastian hukum dan kestabilan finansial klien kami.
           </p>
 
-          <div className="grid grid-cols-2 gap-y-4 gap-x-6 text-gray-800">
+          {/* <div className="grid grid-cols-2 gap-y-4 gap-x-6 text-gray-800">
             {[
               "Professional",
               "Credibel",
@@ -40,7 +37,7 @@ export default function AboutUs() {
                 <span className="font-medium">{item}</span>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

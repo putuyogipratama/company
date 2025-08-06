@@ -10,19 +10,19 @@ export default function FooterContact() {
   return (
     <footer className="bg-white text-gray-700 pt-10 pb-6 border-t border-gray-200">
       <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8">Contact us</h2>
+        <h2 className="text-3xl font-bold mb-8">Kontak Kami</h2>
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
             <h3 className="font-bold text-lg mb-2">Address</h3>
-            <p>121 King Street, Melbourne Victoria 3000<br />Australia</p>
+            <p>Makassar, Sulawesi Selatan, Indonesia</p>
           </div>
           <div>
             <h3 className="font-bold text-lg mb-2">Phone</h3>
-            <p>+61 3 8376 6284</p>
+            <p>+62 878-7718-0896</p>
           </div>
           <div>
             <h3 className="font-bold text-lg mb-2">Email</h3>
-            <p>contact@domain.com</p>
+            <p>dirsonconsultingservices@gmail.com </p>
           </div>
         </div>
         <hr className="mb-6 border-gray-200" />
