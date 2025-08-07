@@ -40,7 +40,7 @@ export default function NavbarDashboard() {
           className="hover:underline"
           onClick={() => alert("Menu 2 clicked")}
         >
-          Data Pegawai
+        Pegawai
         </button>
       </li>
       <li>
@@ -48,7 +48,7 @@ export default function NavbarDashboard() {
           className="hover:underline"
           onClick={() => router.push("/transaksi")}
         >
-          Data Transaksi
+        Transaksi
         </button>
       </li>
       <li>
@@ -56,7 +56,7 @@ export default function NavbarDashboard() {
           className="hover:underline"
           onClick={() => alert("Menu 3 clicked")}
         >
-          Data Layanan
+        Layanan
         </button>
       </li>
       <li>
