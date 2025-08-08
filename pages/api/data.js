@@ -16,7 +16,7 @@ export default async function handler(req, res) {
     const handledByName = payload?.payload?.data?.conversation?.handled_by_name || null;
     const message = payload?.payload?.data?.message || null;
     const messageCreatedAt = payload?.payload?.data?.created_at || null;
-    const conversationId = payload?.payload?.data?.conversation?.conversation_id || null;
+    const conversationId = payload?.payload?.data?.conversation?.cd?.conversation_id || null;
 
     const { data, error } = await supabase
       .from('webhooks')
