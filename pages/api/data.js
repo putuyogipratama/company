@@ -14,6 +14,8 @@ export default async function handler(req, res) {
     const labelName = payload?.payload?.data?.conversation?.labels?.[0]?.label_name || null;
     const displayName = payload?.payload?.data?.conversation?.display_name || null;
     const handledByName = payload?.payload?.data?.conversation?.handled_by_name || null;
+    const message = payload?.payload?.data?.message || null;
+    const messageCreatedAt = payload?.payload?.data?.created_at || null;
 
     const { data, error } = await supabase
       .from('webhooks')
@@ -22,7 +24,9 @@ export default async function handler(req, res) {
         label_name: labelName,
         display_name: displayName,
         handled_by_name: handledByName,
-        json: payload 
+        message: message,
+        message_created_at: messageCreatedAt,
+        json: payload,
     }]);
 
     if (error) {
