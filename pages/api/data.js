@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const datawebhooks = req.body;
+    const payload = req.body;
 
     const phoneNumber = payload?.payload?.data?.conversation?.phone_number || null;
     const labelName = payload?.payload?.data?.conversation?.labels?.[0]?.label_name || null;
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
         label_name: labelName,
         display_name: displayName,
         handled_by_name: handledByName,
-        json: datawebhooks 
+        json: payload 
     }]);
 
     if (error) {
