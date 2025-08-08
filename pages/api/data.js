@@ -10,14 +10,9 @@ export default async function handler(req, res) {
   try {
     const datawebhooks = req.body;
 
-    // Optional: Validate the payload before inserting
-    if (!datawebhooks || typeof datawebhooks !== 'object') {
-      return res.status(400).json({ error: 'Invalid request body' });
-    }
-
     const { data, error } = await supabase
       .from('webhooks')
-      .insert([datawebhooks]);
+      .insert([{ json: datawebhooks }]);
 
     if (error) {
       console.error('Supabase insert error:', error);
