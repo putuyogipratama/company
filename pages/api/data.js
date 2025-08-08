@@ -10,9 +10,20 @@ export default async function handler(req, res) {
   try {
     const datawebhooks = req.body;
 
+    const phoneNumber = payload?.payload?.data?.conversation?.phone_number || null;
+    const labelName = payload?.payload?.data?.conversation?.labels?.[0]?.label_name || null;
+    const displayName = payload?.payload?.data?.conversation?.display_name || null;
+    const handledByName = payload?.payload?.data?.conversation?.handled_by_name || null;
+
     const { data, error } = await supabase
       .from('webhooks')
-      .insert([{ json: datawebhooks }]);
+      .insert([{ 
+        phone_number: phoneNumber,
+        label_name: labelName,
+        display_name: displayName,
+        handled_by_name: handledByName,
+        json: datawebhooks 
+    }]);
 
     if (error) {
       console.error('Supabase insert error:', error);
