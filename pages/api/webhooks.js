@@ -17,6 +17,8 @@ export default async function handler(req, res) {
       .select(
         "id, phone_number, label_name, display_name, handled_by_name, message, message_created_at, conversation_id, created_at"
       )
+      .not("handled_by_name", "is", null) 
+      .neq("handled_by_name", "") 
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -24,7 +26,17 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: "Failed to fetch webhook data" });
     }
 
-    return res.status(200).json(data);
+    const uniqueData = [];
+    const seenNames = new Set();
+
+    for (const row of data) {
+      if (!seenNames.has(row.display_name)) {
+        uniqueData.push(row);
+        seenNames.add(row.display_name);
+      }
+    }
+
+    return res.status(200).json(uniqueData);
   } catch (err) {
     console.error("Unexpected error:", err);
     return res.status(500).json({ error: "Internal server error" });
