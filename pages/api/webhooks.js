@@ -17,8 +17,8 @@ export default async function handler(req, res) {
       .select(
         "id, phone_number, label_name, display_name, handled_by_name, message, message_created_at, conversation_id, created_at"
       )
-      .not("handled_by_name", "is", null) 
-      .neq("handled_by_name", "") 
+      // .not("handled_by_name", "is", null)
+      // .neq("handled_by_name", "")
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -27,12 +27,12 @@ export default async function handler(req, res) {
     }
 
     const uniqueData = [];
-    const seenNames = new Set();
+    const seenPhones = new Set();
 
     for (const row of data) {
-      if (!seenNames.has(row.display_name)) {
+      if (!seenPhones.has(row.phone_number)) {
         uniqueData.push(row);
-        seenNames.add(row.display_name);
+        seenPhones.add(row.phone_number);
       }
     }
 
