@@ -19,7 +19,7 @@ export default async function handler(req, res) {
       )
       // .not("handled_by_name", "is", null)
       // .neq("handled_by_name", "")
-      .order("created_at", { ascending: false });
+      .order("message_created_at", { ascending: false });
 
     if (error) {
       console.error("Supabase select error:", error);
