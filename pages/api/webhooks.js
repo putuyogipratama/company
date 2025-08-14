@@ -31,7 +31,7 @@ export default async function handler(req, res) {
           first_message: "",
           search: "",
           page: 1,
-          itemsPerPage: 100,
+          itemsPerPage: 10000,
           handledBy: [],
           assignedBy: [],
           resolvedBy: [],
