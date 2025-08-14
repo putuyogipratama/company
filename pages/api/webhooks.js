@@ -41,8 +41,7 @@ export default async function handler(req, res) {
     );
 
     const data = await response.json();
-    res.status(response.status).json(data);
-    Ò;
+    res.status(response.status).json(data.data.data);
   } catch (err) {
     console.error("Unexpected error:", err);
     return res.status(500).json({ error: "Internal server error" });
