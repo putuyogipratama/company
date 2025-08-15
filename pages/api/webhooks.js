@@ -1,3 +1,5 @@
+import { getToken } from "@/lib/transaksi";
+
 export default async function handler(req, res) {
   // ✅ Tambahkan CORS Header
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -23,7 +25,7 @@ export default async function handler(req, res) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          access_token: "eyJhbGciOiJIUzI1NiIsImtpZCI6Ikx4UmFtRVFJRTRseTJKaTgiLCJ0eXAiOiJKV1QifQ.eyJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTc1NDU3MTA1NX1dLCJhcHBfbWV0YWRhdGEiOnsiYml6X2lkIjoiNDM3ZGZmYzMtMDBhMi00MDFmLTg0ZDEtODdiZDg4ZjU3MGZhIiwicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwiYXVkIjoiYXV0aGVudGljYXRlZCIsImVtYWlsIjoicG9ja2V0bmlob25nb0BnbWFpbC5jb20iLCJleHAiOjE3NTUxNzU3ODksImlhdCI6MTc1NDU3MTA1NSwiaXNfYW5vbnltb3VzIjpmYWxzZSwiaXNzIjoiaHR0cHM6Ly91ZHF4dWNsbndsaXNlaXlxdWFyYy5zdXBhYmFzZS5jby9hdXRoL3YxIiwicGhvbmUiOiIiLCJyb2xlIjoiYXV0aGVudGljYXRlZCIsInNlc3Npb25faWQiOiJkMTU5NGI0NC0yMGVmLTRjYzMtYjg1ZC0xMDk1MDA2ZGYwNWYiLCJzdWIiOiJlODc0ZTBmYy04YmUxLTRjZmQtOTIxZS1lYzUwZjM2OTlkMjciLCJ1c2VyX21ldGFkYXRhIjp7Im5hbWUiOiJQb2NrZXQgTmlob25nbyIsInBob25lX251bWJlciI6IjYyODIxMzIyMzc1NTAifX0.io8G3_8NnuMD8yDNIZefSF91JfrKR_-we2tUlrcLY2k",
+          access_token: await getToken(),
         },
         body: JSON.stringify({
           firstChat_startDate: startDate.toISOString(),
